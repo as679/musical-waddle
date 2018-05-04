@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-__version__ = '0.1'
+__version__ = '0.2'
 import json
 import time
 import os
@@ -40,6 +40,9 @@ if __name__ == '__main__':
 
     for se in ds.get_all('serviceengine'):
         output.append(format('serviceengine:%s' % se['uuid'], str(se['runtime'])))
+
+    for cluster in ds.get_all('cluster'):
+        output.append(format('cluster:%s' % cluster['uuid'], str(cluster['runtime'])))
 
     with open(out_file, 'a') as fh:
         json.dump(output, fh)

@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-__version__ = '0.2'
+__version__ = '0.3'
 import json
 import time
 import os
@@ -43,6 +43,8 @@ if __name__ == '__main__':
 
     for cluster in ds.get_all('cluster'):
         output.append(format('cluster:%s' % cluster['uuid'], str(cluster['runtime'])))
+
+    output.append(format('VS_COUNT', len(ds.get_all('virtualservice'))))
 
     with open(out_file, 'a') as fh:
         json.dump(output, fh)

@@ -31,17 +31,16 @@ def shell_runner(cmd, check):
             output = None
     return format(cmd, output)
 
+#TODO Need to create proper functions based upon the log file functions
 def nginx_logs():
-    with open('./var/log/nginx/portal.access.log') as fh:
+    with open('/var/log/nginx/portal.access.log') as fh:
         data = fh.readlines()
-
     now = datetime.now()
     result = {'time': now.strftime('%d/%b/%Y:%H:%M:%S'), 'method': {}}
     conf = '$remote_addr - $remote_user [$time_local] "$request" $status $body_bytes_sent "$http_referer" "$http_user_agent" $request_time $upstream_response_time $pipe'
     regex = ''.join(
         '(?P<' + g + '>.*?)' if g else re.escape(c)
         for g, c in re.findall(r'\$(\w+)|(.)', conf))
-
     for line in data:
         m = re.match(regex, line)
         if m is not None:
@@ -56,6 +55,7 @@ def nginx_logs():
                     result['method'][method] = [{'RCODE': m['status'], 'TIME': m['request_time']}]
     return result
 
+#TODO Need to create proper functions based upon the log file functions
 def aviportal_logs():
     with open('/var/log/upstart/aviportal.log') as fh:
         data = fh.readlines()

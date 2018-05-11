@@ -57,7 +57,7 @@ def nginx_logs():
     return result
 
 def aviportal_logs():
-    with open('./var/log/upstart/aviportal.log') as fh:
+    with open('/var/log/upstart/aviportal.log') as fh:
         data = fh.readlines()
 
     now = datetime.now()
